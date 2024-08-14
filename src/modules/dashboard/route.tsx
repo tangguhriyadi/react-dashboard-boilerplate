@@ -4,7 +4,7 @@ import ProtectedRoutes from "@/router/ProtectedRoute";
 
 const router: RouteObject[] = [
   {
-    path: "/",
+    path: "",
     element: <Layout />,
     // handle: {
     //   crumb: () => <Link to="/">Dashboard</Link>,

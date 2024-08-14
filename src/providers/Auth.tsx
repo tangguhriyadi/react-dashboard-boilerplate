@@ -47,6 +47,7 @@ export const AuthProvider = ({ children }: Props) => {
     const token = localStorage.getItem("token");
     if (user && token) {
       setUser(JSON.parse(user));
+      navigate("/");
     }
     setIsReady(true);
   }, []);
