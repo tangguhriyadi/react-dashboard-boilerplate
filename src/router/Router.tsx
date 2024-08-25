@@ -9,6 +9,10 @@ const routes = Object.entries(modules).map((fileModule: any) => {
   return fileModule[1].default[0];
 });
 
+/**
+ * @description
+ * This is the main route.
+ */
 export const router = createBrowserRouter([
   {
     path: "/",
