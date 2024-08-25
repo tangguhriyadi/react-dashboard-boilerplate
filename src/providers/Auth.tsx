@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, UseMutationResult } from "@tanstack/react-query";
 import httpClient from "../utils/http-client";
 import { BaseHttpResponse } from "../utils/common-type";
 import { useNotification } from "@/providers/Notification";
@@ -24,7 +24,12 @@ type AuthContextType = {
   user: User | null;
   token: string | null;
   //   register: (email: string, password: string) => void;
-  login: (email: string, password: string) => void;
+  login: UseMutationResult<
+    BaseHttpResponse<LoginResponse>,
+    Error,
+    LoginSchema,
+    unknown
+  >;
   logout: () => void;
   isLoggedIn: () => boolean;
 };
@@ -52,29 +57,27 @@ export const AuthProvider = ({ children }: Props) => {
     setIsReady(true);
   }, []);
 
-  const login = async () => {
-    return useMutation({
-      mutationFn: (body: LoginSchema) =>
-        httpClient
-          .post<BaseHttpResponse<LoginResponse>>("/auth/login", body)
-          .then((res) => res.data),
-      mutationKey: ["auth-login"],
-      onSuccess: (response) => {
-        if (response.results) {
-          localStorage.setItem("token", response.results.token);
-          setToken(response.results.token);
-          setUser(response.results.user);
-          openNotification({
-            placement: "topRight",
-            message: response.message,
-            title: "Success",
-            type: "success",
-          });
-          navigate("/");
-        }
-      },
-    });
-  };
+  const login = useMutation({
+    mutationFn: (body: LoginSchema) =>
+      httpClient
+        .post<BaseHttpResponse<LoginResponse>>("/auth/login", body)
+        .then((res) => res.data),
+    mutationKey: ["auth-login"],
+    onSuccess: (response) => {
+      if (response.results) {
+        localStorage.setItem("token", response.results.token);
+        setToken(response.results.token);
+        setUser(response.results.user);
+        openNotification({
+          placement: "topRight",
+          message: response.message,
+          title: "Success",
+          type: "success",
+        });
+        navigate("/");
+      }
+    },
+  });
 
   const isLoggedIn = () => {
     return !!user;
