@@ -1,5 +1,6 @@
 import { notification } from "antd";
 import axios from "axios";
+import { ROUTES } from "../constants/routes";
 
 export const errorHandler = (error: any) => {
   if (axios.isAxiosError(error)) {
@@ -28,7 +29,7 @@ export const errorHandler = (error: any) => {
         message: "Please Login !",
         closable: true,
       });
-      window.history.pushState({}, "LoginPage", "/login");
+      window.history.pushState({}, "LoginPage", ROUTES.AUTH.LOGIN);
     } else if (err) {
       notification.warning({
         message: err.data,

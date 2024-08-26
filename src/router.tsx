@@ -11,7 +11,7 @@ const routes = Object.entries(modules).map((fileModule: any) => {
 
 /**
  * @description
- * This is the main route.
+ * This is the main route entry.
  */
 export const router = createBrowserRouter([
   {

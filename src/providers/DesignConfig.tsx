@@ -1,7 +1,12 @@
 import { ConfigProvider } from "antd";
 import React from "react";
 
-const DesignConfig = ({ children }: { children: React.ReactNode }) => {
+interface DesignConfigProps {
+  children: React.ReactNode;
+}
+
+const DesignConfig: React.FC<DesignConfigProps> = (props) => {
+  const { children } = props;
   return (
     <ConfigProvider
       theme={{

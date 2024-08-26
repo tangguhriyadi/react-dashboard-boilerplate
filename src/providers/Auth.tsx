@@ -111,7 +111,7 @@ export const AuthProvider = ({ children }: Props) => {
     localStorage.removeItem("user");
     setUser(null);
     setToken("");
-    navigate("/login");
+    navigate(ROUTES.AUTH.LOGIN);
   };
 
   return (
