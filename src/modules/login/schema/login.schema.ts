@@ -2,7 +2,7 @@ import { createSchemaFieldRule } from "antd-zod";
 import { z } from "zod";
 
 export const loginSchema = z.object({
-  email: z.string().min(1, "Email is Required"),
+  email: z.string().email().min(1, "Email is Required"),
   password: z
     .string()
     .min(8, "Password must be at least 8 characters long")

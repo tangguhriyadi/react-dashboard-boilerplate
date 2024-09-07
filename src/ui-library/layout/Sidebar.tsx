@@ -1,7 +1,10 @@
-import React, { useMemo } from "react";
-import { SidebarProvider } from "@/providers/Sidebar";
-import { Button, Flex, Layout, Menu, MenuProps } from "antd";
-import { LogoutOutlined } from "@ant-design/icons";
+import React, { useMemo, useState } from "react";
+import { Button, Flex, Layout, Menu, MenuProps, Typography } from "antd";
+import {
+  LogoutOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+} from "@ant-design/icons";
 import { useAuth } from "@/providers/Auth";
 import { MENUS } from "@/constants/menu";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -10,6 +13,7 @@ const Sidebar: React.FC = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const items = useMemo<MenuProps["items"]>(
     () =>
@@ -34,28 +38,49 @@ const Sidebar: React.FC = () => {
   }, [location]);
 
   return (
-    <SidebarProvider>
-      <Layout.Sider style={{ background: "white" }}>
-        <Flex style={{ height: "10vh" }} justify="center" align="center">
-          logo
-        </Flex>
-        <Menu
-          items={items}
-          mode="inline"
-          defaultSelectedKeys={[defaultSelectedKey]}
-          style={{ height: "80vh" }}
+    <Layout.Sider
+      style={{ background: "white" }}
+      width="18vw"
+      collapsible
+      collapsed={isCollapsed}
+      trigger={null}
+    >
+      <Flex
+        style={{
+          height: "100%",
+          maxHeight: isCollapsed ? "12vh" : "10vh",
+          padding: "10px 20px",
+        }}
+        justify="space-between"
+        align="center"
+        vertical={isCollapsed}
+      >
+        <Typography.Text>Logo</Typography.Text>
+        <Button
+          type="text"
+          icon={isCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+          onClick={() => setIsCollapsed(!isCollapsed)}
+          style={{
+            fontSize: "16px",
+          }}
         />
-        <Flex style={{ height: "10vh" }} justify="center">
-          <Button
-            icon={<LogoutOutlined />}
-            onClick={() => logout()}
-            iconPosition="end"
-          >
-            Logout
-          </Button>
-        </Flex>
-      </Layout.Sider>
-    </SidebarProvider>
+      </Flex>
+      <Menu
+        items={items}
+        mode="inline"
+        defaultSelectedKeys={[defaultSelectedKey]}
+        style={{ height: "100%", maxHeight: "80vh", fontSize: "16px" }}
+      />
+      <Flex style={{ height: "100%", maxHeight: "10vh" }} justify="center">
+        <Button
+          icon={<LogoutOutlined />}
+          onClick={() => logout()}
+          iconPosition="end"
+        >
+          {!isCollapsed && "Logout"}
+        </Button>
+      </Flex>
+    </Layout.Sider>
   );
 };
 
