@@ -1,5 +1,5 @@
 import { RouteObject } from "react-router-dom";
-import ProtectedRoutes from "@/router/ProtectedRoute";
+import ProtectedRoutes from "@/providers/ProtectedRoute";
 import DashboardLayout from "@/ui-library/DashboardLayout";
 
 const router: RouteObject[] = [
