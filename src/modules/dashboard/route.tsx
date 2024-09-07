@@ -1,6 +1,6 @@
 import { RouteObject } from "react-router-dom";
 import ProtectedRoutes from "@/providers/ProtectedRoute";
-import DashboardLayout from "@/ui-library/DashboardLayout";
+import DashboardLayout from "@/ui-library/layout/DashboardLayout";
 
 const router: RouteObject[] = [
   {
@@ -14,15 +14,7 @@ const router: RouteObject[] = [
         path: "",
         element: (
           <ProtectedRoutes>
-            <div>asd</div>
-          </ProtectedRoutes>
-        ),
-      },
-      {
-        path: "/duar",
-        element: (
-          <ProtectedRoutes>
-            <div>ini duar</div>
+            <div>Dashboard</div>
           </ProtectedRoutes>
         ),
       },

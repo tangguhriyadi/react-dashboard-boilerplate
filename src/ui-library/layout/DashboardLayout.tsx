@@ -1,16 +1,17 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import { SidebarProvider } from "@/providers/Sidebar";
-import { useAuth } from "@/providers/Auth";
+import { Layout } from "antd";
+import Sidebar from "./Sidebar";
 
 const DashboardLayout: React.FC = () => {
-  const { logout } = useAuth();
   return (
     <>
-      <SidebarProvider>
-        <Outlet />
-        <button onClick={() => logout()}>Logout</button>
-      </SidebarProvider>
+      <Layout>
+        <Sidebar />
+        <Layout.Content style={{ padding: "24px", minHeight: "100vh" }}>
+          <Outlet />
+        </Layout.Content>
+      </Layout>
     </>
   );
 };

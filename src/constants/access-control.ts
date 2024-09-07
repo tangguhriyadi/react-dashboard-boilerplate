@@ -1,4 +1,7 @@
-export enum ModuleKey {}
+export enum ModuleKey {
+  Dashboard = "DASHBOARD",
+  Budget = "BUDGET",
+}
 
 export enum Action {
   Create = "CREATE",
