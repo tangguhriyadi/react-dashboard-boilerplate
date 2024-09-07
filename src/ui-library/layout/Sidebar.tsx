@@ -36,7 +36,9 @@ const Sidebar: React.FC = () => {
   return (
     <SidebarProvider>
       <Layout.Sider style={{ background: "white" }}>
-        <Flex style={{ height: "10vh" }}>logo</Flex>
+        <Flex style={{ height: "10vh" }} justify="center" align="center">
+          logo
+        </Flex>
         <Menu
           items={items}
           mode="inline"
