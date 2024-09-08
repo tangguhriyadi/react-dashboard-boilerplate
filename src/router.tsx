@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import { AuthProvider } from "@/providers/Auth";
+import Fallback500 from "./ui-library/error/Fallback500";
 
 // autoload routes
 const modules = import.meta.glob("./modules/**/route.tsx", { eager: true });
@@ -22,6 +23,7 @@ export const router = createBrowserRouter([
       </AuthProvider>
     ),
     children: routes,
+    errorElement: <Fallback500 />,
   },
 ]);
 
